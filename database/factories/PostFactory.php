@@ -23,7 +23,7 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->sentence(),
-            'body'=> $this->faker->word(25)
+            'body'=> $this->faker->words(25, true)
         ];
     }
 }
