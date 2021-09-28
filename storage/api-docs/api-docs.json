@@ -1,0 +1,39 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "C4 Backend API",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/post": {
+            "post": {
+                "summary": "Get List of posts",
+                "description": "Get List Of Posts",
+                "requestBody": {
+                    "required": false
+                },
+                "responses": {
+                    "422": {
+                        "description": "Nothing Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, Nothing Found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

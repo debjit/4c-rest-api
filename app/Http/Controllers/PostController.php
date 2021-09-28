@@ -6,7 +6,23 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Post(
+ * path="/api/post",
+ * summary="Get List of posts",
+ * description="Get List Of Posts",
+ * @OA\RequestBody(
+ *    required=false
+ * ),
+ * @OA\Response(
+ *    response=422,
+ *    description="Nothing Found",
+ *    @OA\JsonContent(
+ *       @OA\Property(property="message", type="string", example="Sorry, Nothing Found")
+ *        )
+ *     )
+ * )
+ */
 class PostController extends Controller
 {
     /**
