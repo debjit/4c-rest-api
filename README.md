@@ -18,6 +18,17 @@ If you are using laravel internal dev server, then your api will be "localhost:8
 | GET|HEAD  | sanctum/csrf-cookie |
 +-----------+---------------------+
 ```
+I have updated the docs and you can get the latest swagger json docs from here. You also can also use 
+
+```bash
+storage\api-docs\api-docs.json
+```
+or goto url
+
+```bash
+url.test/api/documentation
+```
+For an api client and check the api.
 
 ## How do I install ?
 
@@ -29,6 +40,7 @@ But you can also try it on your local machine.
 
 ```bash
 git clone https://github.com/debjit/4c-backend.git
+cd 4c-backend
 composer install
 ```
 
@@ -48,5 +60,11 @@ Migrate the database
 
 ```bash
 php artisan migrate --seed
+```
+
+If you wanted to generate new api docs please run this command.
+
+```bash
+php artisan l5-swagger:generate 
 ```
 Your app is ready to use.

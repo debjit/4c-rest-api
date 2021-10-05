@@ -24,12 +24,7 @@ use Illuminate\Routing\Controller as BaseController;
      *      url=L5_SWAGGER_CONST_HOST,
      *      description="4c api backend."
      * )
-
      *
-     * @OA\Tag(
-     *     name="Projects",
-     *     description="API Endpoints of Projects"
-     * )
      */
 class Controller extends BaseController
 {

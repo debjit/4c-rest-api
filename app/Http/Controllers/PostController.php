@@ -8,21 +8,21 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 
 /**
+ *    @OA\Tag(
+ *     name="Post",
+ *     description="API Endpoints of Posts"
+ *      )
  * @OA\Get(
  *      path="/post",
  *      operationId="getPostsList",
- *      tags={"Posts"},
+ *      tags={"Post"},
  *      summary="Get list of posts",
  *      description="Returns list of posts",
  *
  *      @OA\Response(
  *          response=200,
  *          description="Successful operation",
- *          @OA\JsonContent(
- *          @OA\Property(property="id", type="number", format="number",example="1"),
- *          @OA\Property(property="title", type="string", format="string", example = "Title"),
- *          @OA\Property(property="body", type="string",example="This is some Body."),
- *    )
+ *          @OA\JsonContent(ref="#/components/schemas/Post")
  *       ),
  *      @OA\Response(
  *          response=401,
@@ -43,10 +43,42 @@ class PostController extends Controller
      */
     public function index()
     {
-        return PostResource::collection(Post::query()->latest()->paginate(25));
+        return PostResource::collection(Post::Latest()->paginate(50));
     }
 
 
+
+    /**
+     * @OA\Post(
+     *      path="/post",
+     *      operationId="storePost",
+     *      tags={"Post"},
+     *      summary="Store new post",
+     *      description="Returns post data",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          ref="#/components/schemas/Post"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=201,
+     *          description="Successful operation",
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      )
+     * )
+     */
     /**
      * Store a newly created resource in storage.
      *
@@ -59,6 +91,48 @@ class PostController extends Controller
         return new PostResource($createPost);
     }
 
+
+    /**
+     * @OA\Get(
+     *      path="/post/{id}",
+     *      operationId="getPostUpdate",
+     *      tags={"Post"},
+     *      summary="Get post information",
+     *      description="Returns post data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Post id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *          ref="#/components/schemas/Post"
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
     /**
      * Display the specified resource.
      *
@@ -70,6 +144,54 @@ class PostController extends Controller
         return new PostResource($post);
     }
 
+
+    /**
+     * @OA\Put(
+     *      path="/post/{id}",
+     *      operationId="updatePost",
+     *      tags={"Post"},
+     *      summary="Update existing post",
+     *      description="Returns updated post data",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Post id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          @OA\JsonContent(
+     *          ref="#/components/schemas/Post"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=202,
+     *          description="Successful operation",
+     *          @OA\JsonContent(
+     *          ref="#/components/schemas/Post"
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=400,
+     *          description="Bad Request"
+     *      ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
+     */
     /**
      * Update the specified resource in storage.
      *
@@ -84,14 +206,39 @@ class PostController extends Controller
     }
 
     /**
-     * Remove the specified t1 from storage.
-     * DELETE /t1s/{id}
-     *
-     * @param int $id
-     *
-     * @throws \Exception
-     *
-     * @return Response
+     * @OA\Delete(
+     *      path="/post/{id}",
+     *      operationId="deletePost",
+     *      tags={"Post"},
+     *      summary="Delete existing post",
+     *      description="Deletes a record and returns no content",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Post id",
+     *          required=true,
+     *          in="path",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=204,
+     *          description="Successful operation",
+     *          @OA\JsonContent()
+     *       ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Resource Not Found"
+     *      )
+     * )
      */
     public function destroy(Post $post)
     {

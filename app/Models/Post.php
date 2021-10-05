@@ -19,16 +19,16 @@ use Illuminate\Database\Eloquent\Model;
  *          format="int32"
  *      ),
  *      @OA\Property(
- *          property="created_at",
- *          description="created_at",
+ *          property="title",
+ *          description="title",
  *          type="string",
- *          format="date-time"
+ *          format="string"
  *      ),
  *      @OA\Property(
- *          property="updated_at",
- *          description="updated_at",
+ *          property="body",
+ *          description="body",
  *          type="string",
- *          format="date-time"
+ *          format="string"
  *      )
  * );
  */
