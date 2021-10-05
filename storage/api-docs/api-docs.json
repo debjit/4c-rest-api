@@ -1,38 +1,104 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "C4 Backend API",
-        "version": "1.0.0"
+        "title": "4c API Practice Laravel App",
+        "description": "4c Swagger OpenApi description created by Debjit Biswas.",
+        "contact": {
+            "email": "debjit012@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0.1"
     },
+    "servers": [
+        {
+            "url": "http://4c.test/api",
+            "description": "4c api backend."
+        }
+    ],
     "paths": {
-        "/api/post": {
-            "post": {
-                "summary": "Get List of posts",
-                "description": "Get List Of Posts",
-                "requestBody": {
-                    "required": false
-                },
+        "/post": {
+            "get": {
+                "tags": [
+                    "Posts"
+                ],
+                "summary": "Get list of posts",
+                "description": "Returns list of posts",
+                "operationId": "getPostsList",
                 "responses": {
-                    "422": {
-                        "description": "Nothing Found",
+                    "200": {
+                        "description": "Successful operation",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
+                                        "id": {
+                                            "type": "number",
+                                            "format": "number",
+                                            "example": "1"
+                                        },
+                                        "title": {
                                             "type": "string",
-                                            "example": "Sorry, Nothing Found"
+                                            "format": "string",
+                                            "example": "Title"
+                                        },
+                                        "body": {
+                                            "type": "string",
+                                            "example": "This is some Body."
                                         }
                                     },
                                     "type": "object"
                                 }
                             }
                         }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
                     }
                 }
             }
         }
     },
+    "components": {
+        "schemas": {
+            "Post": {
+                "title": "Post",
+                "description": "Post model",
+                "properties": {
+                    "id": {
+                        "description": "id",
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "created_at": {
+                        "description": "created_at",
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "description": "updated_at",
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Post"
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Projects",
+            "description": "API Endpoints of Projects"
+        }
+    ],
     "security": [
         []
     ]

@@ -6,22 +6,33 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+
 /**
- * @OA\Post(
- * path="/api/post",
- * summary="Get List of posts",
- * description="Get List Of Posts",
- * @OA\RequestBody(
- *    required=false
- * ),
- * @OA\Response(
- *    response=422,
- *    description="Nothing Found",
- *    @OA\JsonContent(
- *       @OA\Property(property="message", type="string", example="Sorry, Nothing Found")
- *        )
+ * @OA\Get(
+ *      path="/post",
+ *      operationId="getPostsList",
+ *      tags={"Posts"},
+ *      summary="Get list of posts",
+ *      description="Returns list of posts",
+ *
+ *      @OA\Response(
+ *          response=200,
+ *          description="Successful operation",
+ *          @OA\JsonContent(
+ *          @OA\Property(property="id", type="number", format="number",example="1"),
+ *          @OA\Property(property="title", type="string", format="string", example = "Title"),
+ *          @OA\Property(property="body", type="string",example="This is some Body."),
+ *    )
+ *       ),
+ *      @OA\Response(
+ *          response=401,
+ *          description="Unauthenticated",
+ *      ),
+ *      @OA\Response(
+ *          response=403,
+ *          description="Forbidden"
+ *      )
  *     )
- * )
  */
 class PostController extends Controller
 {
@@ -34,6 +45,7 @@ class PostController extends Controller
     {
         return PostResource::collection(Post::query()->latest()->paginate(25));
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -69,14 +81,17 @@ class PostController extends Controller
     {
         $post->update($request->validated());
         return new PostResource($post->refresh());
-
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified t1 from storage.
+     * DELETE /t1s/{id}
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     *
+     * @throws \Exception
+     *
+     * @return Response
      */
     public function destroy(Post $post)
     {
